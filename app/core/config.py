@@ -4,6 +4,7 @@ from pydantic import BaseSettings, EmailStr
 
 
 class Settings(BaseSettings):
+    # Base
     app_title: str = 'QRKot'
     app_description: str = 'Благотворительный фонд поддержки котиков'
     database_url: str = 'sqlite+aiosqlite:///./cat_charity_fund.db'
@@ -23,6 +24,10 @@ class Settings(BaseSettings):
     auth_provider_x509_cert_url: Optional[str] = None
     client_x509_cert_url: Optional[str] = None
     email: Optional[str] = None
+
+    # User
+    jwt_lifetime = 3600
+    password_min_length = 3
 
     class Config:
         env_file = '.env'

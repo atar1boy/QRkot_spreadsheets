@@ -24,7 +24,7 @@ bearer_transport = BearerTransport(tokenUrl='auth/jwt/login')
 
 
 def get_jwt_strategy() -> JWTStrategy:
-    return JWTStrategy(secret=settings.secret, lifetime_seconds=3600)
+    return JWTStrategy(secret=settings.secret, lifetime_seconds=settings.jwt_lifetime)
 
 
 auth_backend = AuthenticationBackend(
@@ -41,9 +41,9 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         password: str,
         user: Union[UserCreate, User],
     ) -> None:
-        if len(password) < 3:
+        if len(password) < settings.password_min_length:
             raise InvalidPasswordException(
-                reason='Password should be at least 3 characters'
+                reason=f'Password should be at least {settings.password_min_length} characters'
             )
         if user.email in password:
             raise InvalidPasswordException(
