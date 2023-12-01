@@ -9,7 +9,7 @@ from app.models import CharityProject
 FORMAT = '%Y/%m/%d %H:%M:%S'
 
 GRID_ROWS = 100
-GRID_COLUMNS = 100
+GRID_COLUMNS = 11
 
 
 async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
